@@ -3642,32 +3642,61 @@ export default function App() {
   };
 
   const mainAppUI = (
-    <View style={{ flex: 1, backgroundColor: pageBg, width: '100%', height: '100%', overflow: 'hidden' }}>
+    <View style={{
+      flex: 1,
+      backgroundColor: pageBg,
+      width: '100%',
+      height: '100%',
+      overflow: 'hidden',
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
       <StatusBar style={darkMode ? 'light' : 'dark'} backgroundColor={darkMode ? '#0a0a0a' : '#1F5C3D'} translucent={false} />
 
       {/* SPLASH SCREEN — shown on first launch */}
       {showSplash && (
-        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 999 }}>
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 999, backgroundColor: pageBg, width: '100%', height: '100%' }}>
           <SplashScreen onFinish={() => setShowSplash(false)} />
         </View>
       )}
 
       {/* ONBOARDING — shown only once on fresh install */}
       {!showSplash && showOnboarding && (
-        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 998 }}>
+        <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 998, backgroundColor: pageBg, width: '100%', height: '100%' }}>
           <OnboardingScreen urdu={urdu} onDone={() => setShowOnboarding(false)} />
         </View>
       )}
 
-      <View style={{ flex: 1 }}>{renderScreen()}</View>
+      {/* MAIN CONTENT AREA — LOCKED SCROLL CONTAINER */}
+      <View style={{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        minHeight: 0,
+        flexShrink: 1,
+        overflow: 'hidden',
+        position: 'relative',
+        backgroundColor: pageBg,
+      }}>
+        {renderScreen()}
+      </View>
 
-      {/* PREMIUM TAB BAR */}
+      {/* PREMIUM TAB BAR — PINNED AT BOTTOM */}
       <View style={{
         flexDirection: 'row',
         backgroundColor: dm ? '#111' : '#1F5C3D',
-        paddingBottom: 24, paddingTop: 10,
-        borderTopWidth: 1, borderTopColor: dm ? '#222' : 'rgba(255,255,255,0.1)',
-        elevation: 20, shadowColor: '#000', shadowOpacity: 0.3, shadowRadius: 10,
+        paddingBottom: Platform.OS === 'ios' ? 24 : 12,
+        paddingTop: 10,
+        borderTopWidth: 1,
+        borderTopColor: dm ? '#222' : 'rgba(255,255,255,0.1)',
+        elevation: 20,
+        shadowColor: '#000',
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        flexShrink: 0,
+        zIndex: 100,
+        width: '100%',
       }}>
         {tabs.map((tab) => {
           const isAct = activeTab === tab;
@@ -3700,11 +3729,18 @@ export default function App() {
     return (
       <View style={{
         flex: 1,
-        width: '100%',
-        height: '100%',
+        width: '100vw',
+        height: '100vh',
+        height: '100dvh',
         backgroundColor: '#071a10',
         alignItems: 'center',
         justifyContent: 'center',
+        overflow: 'hidden',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
       }}>
         <View style={{
           width: '100%',
@@ -3714,7 +3750,9 @@ export default function App() {
           backgroundColor: pageBg,
           boxShadow: '0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,175,55,0.25)',
           overflow: 'hidden',
-          position: 'relative'
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
         }}>
           {mainAppUI}
         </View>
