@@ -3729,14 +3729,14 @@ export default function App() {
       {/* PREMIUM TAB BAR — PINNED AT BOTTOM */}
       <View style={{
         flexDirection: 'row',
-        backgroundColor: dm ? '#111' : '#1F5C3D',
+        backgroundColor: dm ? '#121212' : '#FFFFFF',
         paddingTop: 6,
         paddingBottom: 6,
         borderTopWidth: 1,
-        borderTopColor: dm ? '#222' : 'rgba(255,255,255,0.1)',
+        borderTopColor: dm ? '#222222' : '#E8E8E8',
         elevation: 20,
         shadowColor: '#000',
-        shadowOpacity: 0.3,
+        shadowOpacity: 0.1,
         shadowRadius: 10,
         flexShrink: 0,
         zIndex: 1000,
@@ -3745,7 +3745,8 @@ export default function App() {
         {tabs.map((tab) => {
           const isMainTab = ['Home', 'Prayer', 'AI', 'Duas', 'Settings'].includes(activeTab);
           const isAct = activeTab === tab || (tab === 'Home' && !isMainTab);
-          const color = isAct ? '#D4AF37' : (dm ? '#555' : '#9DB8A0');
+          const color = isAct ? (dm ? '#D4AF37' : '#1F5C3D') : (dm ? '#666666' : '#999999');
+          const indicatorColor = dm ? '#D4AF37' : '#1F5C3D';
           const label =
             tab === 'Home' ? (urdu ? 'ہوم' : 'Home') :
             tab === 'Prayer' ? (urdu ? 'نماز' : 'Prayer') :
@@ -3760,7 +3761,7 @@ export default function App() {
             (isAct ? 'settings' : 'settings-outline');
           return (
             <TouchableOpacity key={tab} style={{ flex: 1, alignItems: 'center', paddingVertical: 2 }} onPress={() => setActiveTab(tab)}>
-              <View style={{ width: isAct ? 24 : 0, height: 3, borderRadius: 2, backgroundColor: '#D4AF37', marginBottom: 4 }} />
+              <View style={{ width: isAct ? 24 : 0, height: 3, borderRadius: 2, backgroundColor: indicatorColor, marginBottom: 4 }} />
               <Ionicons name={iconName} size={22} color={color} />
               <Text style={{ color, fontSize: 10, marginTop: 2, fontWeight: isAct ? 'bold' : 'normal' }}>{label}</Text>
             </TouchableOpacity>
