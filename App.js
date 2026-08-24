@@ -3730,8 +3730,8 @@ export default function App() {
       <View style={{
         flexDirection: 'row',
         backgroundColor: dm ? '#111' : '#1F5C3D',
-        paddingBottom: Platform.OS === 'web' ? 'max(12px, env(safe-area-inset-bottom))' : (Platform.OS === 'ios' ? 24 : 10),
-        paddingTop: 8,
+        paddingTop: 6,
+        paddingBottom: 6,
         borderTopWidth: 1,
         borderTopColor: dm ? '#222' : 'rgba(255,255,255,0.1)',
         elevation: 20,
@@ -3759,10 +3759,10 @@ export default function App() {
             tab === 'Duas' ? (isAct ? 'reader' : 'reader-outline') :
             (isAct ? 'settings' : 'settings-outline');
           return (
-            <TouchableOpacity key={tab} style={{ flex: 1, alignItems: 'center', paddingVertical: 4 }} onPress={() => setActiveTab(tab)}>
-              <View style={{ width: isAct ? 24 : 0, height: 3, borderRadius: 2, backgroundColor: '#D4AF37', marginBottom: 6 }} />
+            <TouchableOpacity key={tab} style={{ flex: 1, alignItems: 'center', paddingVertical: 2 }} onPress={() => setActiveTab(tab)}>
+              <View style={{ width: isAct ? 24 : 0, height: 3, borderRadius: 2, backgroundColor: '#D4AF37', marginBottom: 4 }} />
               <Ionicons name={iconName} size={22} color={color} />
-              <Text style={{ color, fontSize: 10, marginTop: 3, fontWeight: isAct ? 'bold' : 'normal' }}>{label}</Text>
+              <Text style={{ color, fontSize: 10, marginTop: 2, fontWeight: isAct ? 'bold' : 'normal' }}>{label}</Text>
             </TouchableOpacity>
           );
         })}
