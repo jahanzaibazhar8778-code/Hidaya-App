@@ -124,6 +124,18 @@ if (fs.existsSync(distHtmlPath)) {
         -webkit-tap-highlight-color: transparent;
         -webkit-touch-callout: none;
       }
+      @font-face {
+        font-family: 'Ionicons';
+        src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'MaterialCommunityIcons';
+        src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'FontAwesome5_Solid';
+        src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf') format('truetype');
+      }
       ::-webkit-scrollbar { width: 5px; height: 5px; }
       ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
       ::-webkit-scrollbar-thumb { background: #1F5C3D; border-radius: 4px; }

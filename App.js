@@ -22,9 +22,12 @@ async function getSafeLocation() {
     const { status } = await Location.requestForegroundPermissionsAsync();
     if (status === 'granted') {
       let loc = await Location.getLastKnownPositionAsync({});
-      if (!loc) {
-        loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      if (loc && loc.coords) {
+        return { coords: loc.coords, isFallback: false };
       }
+      const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(null), 2500));
+      const posPromise = Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Low });
+      loc = await Promise.race([posPromise, timeoutPromise]);
       if (loc && loc.coords) {
         return { coords: loc.coords, isFallback: false };
       }
@@ -1620,18 +1623,24 @@ function HidayaAIScreen({ urdu = false, darkMode = false }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // PRAYER SCREEN
 // ═══════════════════════════════════════════════════════════════════════════════
-function PrayerScreen({ urdu = false, darkMode = false }) {
-  const [prayerTimes, setPrayerTimes] = useState(null);
-  const [location, setLocation] = useState(null);
-  const [errorMsg, setErrorMsg] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [cityName, setCityName] = useState('');
+function PrayerScreen({ urdu = false, darkMode = false, onBack }) {
   const dm = darkMode;
   const cardBg = dm ? '#1a1a1a' : '#fff';
   const pageBg = dm ? '#0a0a0a' : '#F5F2E8';
   const textColor = dm ? '#e0e0e0' : '#1a1a1a';
   const subColor = dm ? '#888' : '#666';
   const borderColor = dm ? '#2a2a2a' : '#e8e8e8';
+
+  const defaultCoords = new Coordinates(DEFAULT_COORDS.latitude, DEFAULT_COORDS.longitude);
+  const defaultParams = CalculationMethod.Karachi();
+  defaultParams.madhab = Madhab.Hanafi;
+  const defaultTimes = new PrayerTimes(defaultCoords, new Date(), defaultParams);
+
+  const [prayerTimes, setPrayerTimes] = useState(defaultTimes);
+  const [location, setLocation] = useState(null);
+  const [errorMsg, setErrorMsg] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [cityName, setCityName] = useState(DEFAULT_CITY);
 
   const prayerNames = [
     { key: 'fajr', name: urdu ? 'فجر' : 'Fajr', icon: 'moon', color: '#5c6bc0' },
@@ -1669,19 +1678,24 @@ function PrayerScreen({ urdu = false, darkMode = false }) {
     let mounted = true;
     (async () => {
       try {
-        const { status } = await Location.requestForegroundPermissionsAsync();
-        if (status !== 'granted') { if (mounted) { setErrorMsg(urdu ? 'مقام کی اجازت نہیں ملی۔' : 'Location permission denied.'); setLoading(false); } return; }
-        const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+        const { coords, isFallback } = await getSafeLocation();
         if (!mounted) return;
-        setLocation(loc);
-        const geo = await Location.reverseGeocodeAsync({ latitude: loc.coords.latitude, longitude: loc.coords.longitude });
-        if (geo[0] && mounted) setCityName(geo[0].city || geo[0].region || '');
-        const coords = new Coordinates(loc.coords.latitude, loc.coords.longitude);
+        setLocation({ coords });
+        try {
+          const geo = await Location.reverseGeocodeAsync({ latitude: coords.latitude, longitude: coords.longitude });
+          if (geo && geo[0] && mounted) setCityName(geo[0].city || geo[0].region || (isFallback ? DEFAULT_CITY : ''));
+          else if (isFallback && mounted) setCityName(DEFAULT_CITY);
+        } catch (e) {
+          if (isFallback && mounted) setCityName(DEFAULT_CITY);
+        }
+        const adhanCoords = new Coordinates(coords.latitude, coords.longitude);
         const params = CalculationMethod.Karachi();
         params.madhab = Madhab.Hanafi;
-        const times = new PrayerTimes(coords, new Date(), params);
+        const times = new PrayerTimes(adhanCoords, new Date(), params);
         if (mounted) { setPrayerTimes(times); setLoading(false); }
-      } catch (e) { if (mounted) { setErrorMsg(urdu ? 'مقام معلوم نہیں ہو سکا۔' : 'Could not get location.'); setLoading(false); } }
+      } catch (e) {
+        if (mounted) setLoading(false);
+      }
     })();
     return () => { mounted = false; };
   }, [urdu]);
@@ -1693,7 +1707,14 @@ function PrayerScreen({ urdu = false, darkMode = false }) {
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: pageBg }} showsVerticalScrollIndicator={false}>
-      <View style={{ backgroundColor: dm ? '#0B2818' : '#1F5C3D', padding: 30, alignItems: 'center', paddingTop: 60, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, overflow: 'hidden' }}>
+      <View style={{ backgroundColor: dm ? '#0B2818' : '#1F5C3D', padding: 30, alignItems: 'center', paddingTop: 60, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, overflow: 'hidden', position: 'relative' }}>
+        {onBack && (
+          <TouchableOpacity onPress={onBack} activeOpacity={0.75}
+            style={{ position: 'absolute', top: 50, left: 16, zIndex: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.15)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20 }}>
+            <Ionicons name="arrow-back" size={18} color="#D4AF37" />
+            <Text style={{ color: '#fff', fontSize: 12, marginLeft: 4, fontWeight: '600' }}>{urdu ? 'واپس' : 'Back'}</Text>
+          </TouchableOpacity>
+        )}
         <Text style={{ position: 'absolute', top: -20, left: -16, fontSize: 100, color: 'rgba(212,175,55,0.06)' }}>✦</Text>
         <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: 'rgba(212,175,55,0.12)', justifyContent: 'center', alignItems: 'center', marginBottom: 6 }}>
           <MaterialCommunityIcons name="mosque" size={28} color="#D4AF37" />
