@@ -129,6 +129,13 @@ if (fs.existsSync(distHtmlPath)) {
       ::-webkit-scrollbar-thumb { background: #1F5C3D; border-radius: 4px; }
       ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
       body { overscroll-behavior-y: none; }
+      @media (max-width: 500px) {
+        html, body, #root {
+          width: 100% !important;
+          height: 100% !important;
+          height: 100dvh !important;
+        }
+      }
     </style>
     <script>
       if ('serviceWorker' in navigator) {

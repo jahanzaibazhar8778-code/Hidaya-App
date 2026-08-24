@@ -253,7 +253,7 @@ function StepCard({ step, urdu, darkMode, expanded, onPress }) {
   );
 }
 
-export default function HajjUmrahGuideScreen({ urdu = false, darkMode = false }) {
+export default function HajjUmrahGuideScreen({ urdu = false, darkMode = false, onBack }) {
   const dm = darkMode;
   const pageBg = dm ? '#0a0a0a' : '#f0f4f0';
   const cardBg = dm ? '#1a1a1a' : '#fff';
@@ -276,7 +276,14 @@ export default function HajjUmrahGuideScreen({ urdu = false, darkMode = false })
 
   return (
     <ScrollView style={{ flex: 1, backgroundColor: pageBg }} showsVerticalScrollIndicator={false}>
-      <View style={{ backgroundColor: dm ? '#0d2b1a' : '#1a472a', padding: 30, alignItems: 'center', paddingTop: 60, borderBottomLeftRadius: 24, borderBottomRightRadius: 24 }}>
+      <View style={{ backgroundColor: dm ? '#0d2b1a' : '#1a472a', padding: 30, alignItems: 'center', paddingTop: 60, borderBottomLeftRadius: 24, borderBottomRightRadius: 24, position: 'relative' }}>
+        {onBack && (
+          <TouchableOpacity onPress={onBack} activeOpacity={0.75}
+            style={{ position: 'absolute', top: 50, left: 16, zIndex: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.15)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20 }}>
+            <Ionicons name="arrow-back" size={18} color="#ffd700" />
+            <Text style={{ color: '#fff', fontSize: 12, marginLeft: 4, fontWeight: '600' }}>{urdu ? 'واپس' : 'Back'}</Text>
+          </TouchableOpacity>
+        )}
         <FontAwesome5 name="kaaba" size={32} color="#ffd700" />
         <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold', marginTop: 8 }}>
           {urdu ? 'حج و عمرہ گائیڈ' : 'Hajj & Umrah Guide'}

@@ -1887,7 +1887,7 @@ function SalahTrackerScreen({ urdu = false, darkMode = false }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // QIBLA SCREEN
 // ═══════════════════════════════════════════════════════════════════════════════
-function QiblaScreen({ urdu = false, darkMode = false }) {
+function QiblaScreen({ urdu = false, darkMode = false, onBack }) {
   const [heading, setHeading] = useState(0);
   const [qiblaAngle, setQiblaAngle] = useState(null);
   const [location, setLocation] = useState(null);
@@ -1973,7 +1973,14 @@ function QiblaScreen({ urdu = false, darkMode = false }) {
     <ScrollView style={{ flex: 1, backgroundColor: pageBg }} contentContainerStyle={{ paddingBottom: 40 }} showsVerticalScrollIndicator={false}>
 
       {/* Header */}
-      <View style={{ backgroundColor: dm ? '#0B2818' : '#1F5C3D', padding: 30, alignItems: 'center', paddingTop: 60, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, overflow: 'hidden' }}>
+      <View style={{ backgroundColor: dm ? '#0B2818' : '#1F5C3D', padding: 30, alignItems: 'center', paddingTop: 60, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, overflow: 'hidden', position: 'relative' }}>
+        {onBack && (
+          <TouchableOpacity onPress={onBack} activeOpacity={0.75}
+            style={{ position: 'absolute', top: 50, left: 16, zIndex: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.15)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20 }}>
+            <Ionicons name="arrow-back" size={18} color="#D4AF37" />
+            <Text style={{ color: '#fff', fontSize: 12, marginLeft: 4, fontWeight: '600' }}>{urdu ? 'واپس' : 'Back'}</Text>
+          </TouchableOpacity>
+        )}
         <Text style={{ position: 'absolute', top: -18, right: -12, fontSize: 100, color: 'rgba(212,175,55,0.06)' }}>✦</Text>
         <View style={{ width: 56, height: 56, borderRadius: 28, backgroundColor: 'rgba(212,175,55,0.12)', justifyContent: 'center', alignItems: 'center', marginBottom: 6 }}>
           <Ionicons name="compass" size={28} color="#D4AF37" />
@@ -2140,7 +2147,7 @@ function QiblaScreen({ urdu = false, darkMode = false }) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // MASJID FINDER SCREEN
 // ═══════════════════════════════════════════════════════════════════════════════
-function MasjidFinderScreen({ urdu, darkMode }) {
+function MasjidFinderScreen({ urdu, darkMode, onBack }) {
   const dm = darkMode;
   const pageBg = dm ? '#0a0a0a' : '#F5F2E8';
   const cardBg = dm ? '#1a1a1a' : '#fff';
@@ -2181,7 +2188,14 @@ function MasjidFinderScreen({ urdu, darkMode }) {
   return (
     <ScrollView style={{ flex: 1, backgroundColor: pageBg }} showsVerticalScrollIndicator={false}>
       {/* Header */}
-      <View style={{ backgroundColor: dm ? '#0B2818' : '#1F5C3D', paddingTop: 60, paddingBottom: 32, paddingHorizontal: 20, alignItems: 'center', borderBottomLeftRadius: 30, borderBottomRightRadius: 30, overflow: 'hidden' }}>
+      <View style={{ backgroundColor: dm ? '#0B2818' : '#1F5C3D', paddingTop: 60, paddingBottom: 32, paddingHorizontal: 20, alignItems: 'center', borderBottomLeftRadius: 30, borderBottomRightRadius: 30, overflow: 'hidden', position: 'relative' }}>
+        {onBack && (
+          <TouchableOpacity onPress={onBack} activeOpacity={0.75}
+            style={{ position: 'absolute', top: 50, left: 16, zIndex: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.15)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20 }}>
+            <Ionicons name="arrow-back" size={18} color="#D4AF37" />
+            <Text style={{ color: '#fff', fontSize: 12, marginLeft: 4, fontWeight: '600' }}>{urdu ? 'واپس' : 'Back'}</Text>
+          </TouchableOpacity>
+        )}
         <Text style={{ position: 'absolute', top: -18, left: -14, fontSize: 100, color: 'rgba(212,175,55,0.06)' }}>✦</Text>
         <View style={{ width: 64, height: 64, borderRadius: 32, backgroundColor: 'rgba(212,175,55,0.13)', justifyContent: 'center', alignItems: 'center', marginBottom: 8 }}>
           <MaterialCommunityIcons name="mosque" size={32} color="#D4AF37" />
@@ -2331,7 +2345,7 @@ const MUSLIM_NAMES = {
   ],
 };
 
-function MuslimNamesScreen({ urdu, darkMode }) {
+function MuslimNamesScreen({ urdu, darkMode, onBack }) {
   const dm = darkMode;
   const pageBg = dm ? '#0a0a0a' : '#F5F2E8';
   const cardBg = dm ? '#1a1a1a' : '#fff';
@@ -2394,7 +2408,14 @@ function MuslimNamesScreen({ urdu, darkMode }) {
 
   return (
     <View style={{ flex: 1, backgroundColor: pageBg }}>
-      <View style={{ backgroundColor: dm ? '#0B2818' : '#1F5C3D', paddingTop: 55, paddingBottom: 22, paddingHorizontal: 20, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, overflow: 'hidden' }}>
+      <View style={{ backgroundColor: dm ? '#0B2818' : '#1F5C3D', paddingTop: 55, paddingBottom: 22, paddingHorizontal: 20, borderBottomLeftRadius: 30, borderBottomRightRadius: 30, overflow: 'hidden', position: 'relative' }}>
+        {onBack && (
+          <TouchableOpacity onPress={onBack} activeOpacity={0.75}
+            style={{ position: 'absolute', top: 50, left: 16, zIndex: 10, flexDirection: 'row', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.15)', paddingHorizontal: 12, paddingVertical: 6, borderRadius: 20 }}>
+            <Ionicons name="arrow-back" size={18} color="#D4AF37" />
+            <Text style={{ color: '#fff', fontSize: 12, marginLeft: 4, fontWeight: '600' }}>{urdu ? 'واپس' : 'Back'}</Text>
+          </TouchableOpacity>
+        )}
         <Text style={{ position: 'absolute', top: -18, right: -12, fontSize: 90, color: 'rgba(212,175,55,0.06)' }}>✦</Text>
         <Text style={{ color: '#fff', fontSize: 24, fontWeight: 'bold', marginBottom: 4 }}>{urdu ? 'مسلم نام' : 'Muslim Names'}</Text>
         <Text style={{ color: '#9DB8A0', fontSize: 12.5, marginBottom: 16 }}>{urdu ? `${MUSLIM_NAMES[gender].length} نام معانی کے ساتھ` : `${MUSLIM_NAMES[gender].length} names with meanings`}</Text>
@@ -3376,13 +3397,13 @@ export default function App() {
       );
     }
 
-    if (activeTab === 'Prayer') return <PrayerScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Qibla') return <QiblaScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Salah') return <SalahTrackerScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Zakat') return <ZakatScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Azan') return <AzanScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'AI') return <HidayaAIScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Quotes') return <IslamicQuotesScreen urdu={urdu} darkMode={darkMode} />;
+    if (activeTab === 'Prayer') return <PrayerScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Qibla') return <QiblaScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Salah') return <SalahTrackerScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Zakat') return <ZakatScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Azan') return <AzanScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'AI') return <HidayaAIScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Quotes') return <IslamicQuotesScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
 
     // ── TASBEEH ──
     if (activeTab === 'Tasbeeh') {
@@ -3619,12 +3640,12 @@ export default function App() {
       );
     }
 
-    if (activeTab === 'Masjid') return <MasjidFinderScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'MuslimNames') return <MuslimNamesScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Hajj') return <HajjUmrahGuideScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Quiz') return <IslamicQuizScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Seerah') return <SeerahScreen urdu={urdu} darkMode={darkMode} />;
-    if (activeTab === 'Stories') return <IslamicStoriesScreen urdu={urdu} darkMode={darkMode} />;
+    if (activeTab === 'Masjid') return <MasjidFinderScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'MuslimNames') return <MuslimNamesScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Hajj') return <HajjUmrahGuideScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Quiz') return <IslamicQuizScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Seerah') return <SeerahScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
+    if (activeTab === 'Stories') return <IslamicStoriesScreen urdu={urdu} darkMode={darkMode} onBack={() => setActiveTab('Home')} />;
     if (activeTab === 'Settings') return <SettingsScreen urdu={urdu} setUrdu={setUrdu} darkMode={darkMode} setDarkMode={setDarkMode} />;
 
     return (
@@ -3686,8 +3707,8 @@ export default function App() {
       <View style={{
         flexDirection: 'row',
         backgroundColor: dm ? '#111' : '#1F5C3D',
-        paddingBottom: Platform.OS === 'ios' ? 24 : 12,
-        paddingTop: 10,
+        paddingBottom: Platform.OS === 'web' ? 8 : (Platform.OS === 'ios' ? 20 : 8),
+        paddingTop: 8,
         borderTopWidth: 1,
         borderTopColor: dm ? '#222' : 'rgba(255,255,255,0.1)',
         elevation: 20,
@@ -3699,7 +3720,8 @@ export default function App() {
         width: '100%',
       }}>
         {tabs.map((tab) => {
-          const isAct = activeTab === tab;
+          const isMainTab = ['Home', 'Prayer', 'AI', 'Duas', 'Settings'].includes(activeTab);
+          const isAct = activeTab === tab || (tab === 'Home' && !isMainTab);
           const color = isAct ? '#D4AF37' : (dm ? '#555' : '#9DB8A0');
           const label =
             tab === 'Home' ? (urdu ? 'ہوم' : 'Home') :
@@ -3729,24 +3751,17 @@ export default function App() {
     return (
       <View style={{
         flex: 1,
-        width: '100vw',
-        height: '100vh',
-        height: '100dvh',
+        width: '100%',
+        height: '100%',
         backgroundColor: '#071a10',
         alignItems: 'center',
         justifyContent: 'center',
         overflow: 'hidden',
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
       }}>
         <View style={{
           width: '100%',
           maxWidth: 480,
           height: '100%',
-          maxHeight: 960,
           backgroundColor: pageBg,
           boxShadow: '0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,175,55,0.25)',
           overflow: 'hidden',
