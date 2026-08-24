@@ -1944,16 +1944,18 @@ function QiblaScreen({ urdu = false, darkMode = false, onBack }) {
           if (isFallback) setCityName(DEFAULT_CITY);
         }
         setQiblaAngle(calcQibla(coords.latitude, coords.longitude));
-        try {
-          hs = await Location.watchHeadingAsync((d) => setHeading(d.magHeading));
-        } catch (e) {}
+        if (Platform.OS !== 'web') {
+          try {
+            hs = await Location.watchHeadingAsync((d) => setHeading(d.magHeading));
+          } catch (e) {}
+        }
         setLoading(false);
       } catch (e) {
         setErrorMsg(urdu ? 'مقام معلوم نہیں ہو سکا۔' : 'Could not get location.');
         setLoading(false);
       }
     })();
-    return () => { if (hs) hs.remove(); };
+    return () => { if (hs && typeof hs.remove === 'function') hs.remove(); };
   }, []);
 
   if (loading) return (
@@ -3769,6 +3771,9 @@ export default function App() {
   );
 
   if (Platform.OS === 'web') {
+    const isDesktop = typeof window !== 'undefined' && window.innerWidth > 500;
+    if (!isDesktop) return mainAppUI;
+
     return (
       <View style={{
         flex: 1,

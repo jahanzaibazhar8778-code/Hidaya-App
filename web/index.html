@@ -20,6 +20,10 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="shortcut icon" href="/favicon.ico" />
 
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preload" as="font" type="font/ttf" href="https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf" crossorigin />
+    <link rel="preload" as="font" type="font/ttf" href="https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf" crossorigin />
+
     <!-- iOS Fullscreen Standalone Web App Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -57,14 +61,17 @@
       @font-face {
         font-family: 'Ionicons';
         src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf') format('truetype');
+        font-display: swap;
       }
       @font-face {
         font-family: 'MaterialCommunityIcons';
         src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf') format('truetype');
+        font-display: swap;
       }
       @font-face {
         font-family: 'FontAwesome5_Solid';
         src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf') format('truetype');
+        font-display: swap;
       }
 
       /* Smooth & Subtle Scrollbars for Web */

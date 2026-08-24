@@ -111,6 +111,9 @@ if (fs.existsSync(distHtmlPath)) {
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preload" as="font" type="font/ttf" href="https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf" crossorigin />
+    <link rel="preload" as="font" type="font/ttf" href="https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf" crossorigin />
     <style>
       html, body, #root {
         width: 100%;
@@ -127,14 +130,17 @@ if (fs.existsSync(distHtmlPath)) {
       @font-face {
         font-family: 'Ionicons';
         src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/Ionicons.ttf') format('truetype');
+        font-display: swap;
       }
       @font-face {
         font-family: 'MaterialCommunityIcons';
         src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf') format('truetype');
+        font-display: swap;
       }
       @font-face {
         font-family: 'FontAwesome5_Solid';
         src: url('https://cdn.jsdelivr.net/npm/@expo/vector-icons@14.0.0/build/vendor/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf') format('truetype');
+        font-display: swap;
       }
       ::-webkit-scrollbar { width: 5px; height: 5px; }
       ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
