@@ -3641,8 +3641,8 @@ export default function App() {
     );
   };
 
-  return (
-    <View style={{ flex: 1, backgroundColor: pageBg }}>
+  const mainAppUI = (
+    <View style={{ flex: 1, backgroundColor: pageBg, width: '100%', height: '100%', overflow: 'hidden' }}>
       <StatusBar style={darkMode ? 'light' : 'dark'} backgroundColor={darkMode ? '#0a0a0a' : '#1F5C3D'} translucent={false} />
 
       {/* SPLASH SCREEN — shown on first launch */}
@@ -3695,4 +3695,32 @@ export default function App() {
       </View>
     </View>
   );
+
+  if (Platform.OS === 'web') {
+    return (
+      <View style={{
+        flex: 1,
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#071a10',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}>
+        <View style={{
+          width: '100%',
+          maxWidth: 480,
+          height: '100%',
+          maxHeight: 960,
+          backgroundColor: pageBg,
+          boxShadow: '0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,175,55,0.25)',
+          overflow: 'hidden',
+          position: 'relative'
+        }}>
+          {mainAppUI}
+        </View>
+      </View>
+    );
+  }
+
+  return mainAppUI;
 }

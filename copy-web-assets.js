@@ -101,7 +101,7 @@ if (fs.existsSync(distHtmlPath)) {
   let html = fs.readFileSync(distHtmlPath, 'utf8');
 
   const pwaTags = `
-    <!-- iOS PWA Fullscreen Standalone Meta Tags -->
+    <!-- iOS PWA Fullscreen Standalone Meta Tags & Native App Styling -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="Hidaya" />
@@ -111,6 +111,25 @@ if (fs.existsSync(distHtmlPath)) {
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png" />
+    <style>
+      html, body, #root {
+        width: 100%;
+        height: 100%;
+        height: 100dvh;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #061a10;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+      }
+      ::-webkit-scrollbar { width: 5px; height: 5px; }
+      ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.1); }
+      ::-webkit-scrollbar-thumb { background: #1F5C3D; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
+      body { overscroll-behavior-y: none; }
+    </style>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {
@@ -124,6 +143,6 @@ if (fs.existsSync(distHtmlPath)) {
   if (!html.includes('apple-mobile-web-app-capable')) {
     html = html.replace('</head>', `${pwaTags}\n</head>`);
     fs.writeFileSync(distHtmlPath, html);
-    console.log('Injected PWA tags into dist/index.html');
+    console.log('Injected PWA tags and CSS into dist/index.html');
   }
 }
