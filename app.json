@@ -1,0 +1,81 @@
+{
+  "expo": {
+    "name": "Hidaya",
+    "slug": "hidaya-islamic-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0d2b1a"
+    },
+
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.hidaya.islamicapp",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "Hidaya needs your location to calculate accurate prayer times and Qibla direction.",
+        "NSLocationAlwaysUsageDescription": "Hidaya needs your location to calculate accurate prayer times and Qibla direction."
+      }
+    },
+
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0d2b1a"
+      },
+      "package": "com.hidaya.islamicapp",
+      "versionCode": 1,
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE"
+      ],
+      "edgeToEdgeEnabled": true
+    },
+
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "name": "Hidaya - Islamic App",
+      "shortName": "Hidaya",
+      "themeColor": "#0d2b1a",
+      "backgroundColor": "#0d2b1a",
+      "display": "standalone",
+      "orientation": "portrait",
+      "appleTouchIcon": "./assets/apple-touch-icon.png",
+      "meta": {
+        "apple-mobile-web-app-capable": "yes",
+        "apple-mobile-web-app-status-bar-style": "black-translucent",
+        "apple-mobile-web-app-title": "Hidaya"
+      }
+    },
+
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#1a472a",
+          "sounds": ["./assets/azan.wav"]
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Hidaya needs location for prayer times and Qibla direction."
+        }
+      ]
+    ],
+
+    "extra": {
+      "appThemeColor": "#1a472a",
+      "appGoldColor": "#ffd700",
+      "appDarkBg": "#0d2b1a"
+    }
+  }
+}

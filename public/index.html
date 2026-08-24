@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover" />
+    <title>Hidaya - Islamic App</title>
+
+    <!-- PWA Primary Color -->
+    <meta name="theme-color" content="#0d2b1a" />
+    <meta name="description" content="Hidaya - Your Comprehensive Islamic Companion App" />
+
+    <!-- Web App Manifest for Fullscreen PWA -->
+    <link rel="manifest" href="/manifest.json" />
+
+    <!-- Apple iOS Touch Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <!-- iOS Fullscreen Standalone Web App Meta Tags -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Hidaya" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- PWA Service Worker & iOS Standalone Launcher Script -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js').catch(function(err) {
+            console.log('SW registration error:', err);
+          });
+        });
+      }
+
+      // Prevent iOS standalone app from opening links in Safari browser frame
+      (function(a,b,c){if(c in b&&b[c]){var d,e=a.location,f=/^(a|html)$/i;a.addEventListener("click",function(a){d=a.target;while(!f.test(d.nodeName))d=d.parentNode;"href"in d&&(d.href.indexOf("http")||~d.href.indexOf(e.host))&&(a.preventDefault(),e.href=d.href)},!1)}})(document,window.navigator,"standalone");
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

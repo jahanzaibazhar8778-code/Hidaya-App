@@ -1,0 +1,1 @@
+// Removed extra proxy script. Hidaya AI now connects directly and safely via App.js with multi-model fallback.
