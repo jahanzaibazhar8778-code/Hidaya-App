@@ -3730,7 +3730,7 @@ export default function App() {
       <View style={{
         flexDirection: 'row',
         backgroundColor: dm ? '#111' : '#1F5C3D',
-        paddingBottom: Platform.OS === 'web' ? 8 : (Platform.OS === 'ios' ? 20 : 8),
+        paddingBottom: Platform.OS === 'web' ? 'max(12px, env(safe-area-inset-bottom))' : (Platform.OS === 'ios' ? 24 : 10),
         paddingTop: 8,
         borderTopWidth: 1,
         borderTopColor: dm ? '#222' : 'rgba(255,255,255,0.1)',
@@ -3739,7 +3739,7 @@ export default function App() {
         shadowOpacity: 0.3,
         shadowRadius: 10,
         flexShrink: 0,
-        zIndex: 100,
+        zIndex: 1000,
         width: '100%',
       }}>
         {tabs.map((tab) => {
