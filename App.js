@@ -3732,8 +3732,8 @@ function MainApp() {
       <View style={{
         flexDirection: 'row',
         backgroundColor: dm ? '#121212' : '#FFFFFF',
-        paddingTop: 8,
-        paddingBottom: Math.max(insets.bottom, 6),
+        paddingTop: 6,
+        paddingBottom: Platform.OS === 'web' ? 6 : Math.max(insets.bottom, 6),
         borderTopWidth: 1,
         borderTopColor: dm ? '#222222' : '#E8E8E8',
         elevation: 20,
@@ -3811,7 +3811,7 @@ function MainApp() {
 
 export default function App() {
   return (
-    <SafeAreaProvider>
+    <SafeAreaProvider style={{ flex: 1, width: '100%', height: '100%' }}>
       <MainApp />
     </SafeAreaProvider>
   );

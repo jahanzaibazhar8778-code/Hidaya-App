@@ -118,10 +118,11 @@ if (fs.existsSync(distHtmlPath)) {
       html, body, #root {
         width: 100%;
         height: 100%;
-        height: 100dvh;
         margin: 0;
         padding: 0;
         overflow: hidden;
+        display: flex;
+        flex-direction: column;
         background-color: #0a0a0a;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         -webkit-tap-highlight-color: transparent;
