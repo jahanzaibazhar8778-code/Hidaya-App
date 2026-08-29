@@ -11,6 +11,7 @@ import { Audio } from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Coordinates, PrayerTimes, CalculationMethod, Madhab } from 'adhan';
 import moment from 'moment-hijri';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import HajjUmrahGuideScreen from './HajjUmrahGuideScreen';
 
 // Default Fallback Location (Lahore, Pakistan) if GPS is disabled or permission denied
@@ -3066,7 +3067,8 @@ function SplashScreen({ onFinish }) {
   );
 }
 
-export default function App() {
+function MainApp() {
+  const insets = useSafeAreaInsets();
   const systemScheme = useColorScheme();
   const [showSplash, setShowSplash] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -3726,12 +3728,12 @@ export default function App() {
         {renderScreen()}
       </View>
 
-      {/* PREMIUM TAB BAR — PINNED AT BOTTOM */}
+      {/* PREMIUM TAB BAR — PINNED AT BOTTOM EXTENDING TO SCREEN EDGE */}
       <View style={{
         flexDirection: 'row',
         backgroundColor: dm ? '#121212' : '#FFFFFF',
-        paddingTop: 6,
-        paddingBottom: 6,
+        paddingTop: 8,
+        paddingBottom: Math.max(insets.bottom, 6),
         borderTopWidth: 1,
         borderTopColor: dm ? '#222222' : '#E8E8E8',
         elevation: 20,
@@ -3741,6 +3743,7 @@ export default function App() {
         flexShrink: 0,
         zIndex: 1000,
         width: '100%',
+        marginBottom: 0,
       }}>
         {tabs.map((tab) => {
           const isMainTab = ['Home', 'Prayer', 'AI', 'Duas', 'Settings'].includes(activeTab);
@@ -3804,4 +3807,12 @@ export default function App() {
   }
 
   return mainAppUI;
+}
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <MainApp />
+    </SafeAreaProvider>
+  );
 }
