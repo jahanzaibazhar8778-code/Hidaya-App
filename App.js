@@ -2,7 +2,7 @@ import * as Sharing from 'expo-sharing';
 import ViewShot from 'react-native-view-shot';
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from '@expo/vector-icons';
 import { useState, useEffect, useRef } from 'react';
-import { useColorScheme, Platform } from 'react-native';
+import { useColorScheme, Platform, useWindowDimensions } from 'react-native';
 import { View, Text, ScrollView, TouchableOpacity, Vibration, ActivityIndicator, TextInput, AppState, Modal, Alert, Animated, Easing, Linking } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import * as Location from 'expo-location';
@@ -3771,8 +3771,9 @@ export default function App() {
     </View>
   );
 
+  const { width } = useWindowDimensions();
   if (Platform.OS === 'web') {
-    const isDesktop = typeof window !== 'undefined' && window.innerWidth > 500;
+    const isDesktop = width > 500;
     if (!isDesktop) return mainAppUI;
 
     return (
