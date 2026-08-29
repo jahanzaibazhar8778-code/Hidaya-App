@@ -3728,12 +3728,12 @@ function MainApp() {
         {renderScreen()}
       </View>
 
-      {/* PREMIUM TAB BAR — PINNED AT BOTTOM EXTENDING TO SCREEN EDGE */}
+      {/* PREMIUM TAB BAR — PINNED AT BOTTOM */}
       <View style={{
         flexDirection: 'row',
         backgroundColor: dm ? '#121212' : '#FFFFFF',
         paddingTop: 6,
-        paddingBottom: Platform.OS === 'web' ? 6 : Math.max(insets.bottom, 6),
+        paddingBottom: 6,
         borderTopWidth: 1,
         borderTopColor: dm ? '#222222' : '#E8E8E8',
         elevation: 20,
