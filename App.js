@@ -3774,38 +3774,6 @@ function MainApp() {
     </View>
   );
 
-  const { width } = useWindowDimensions();
-  if (Platform.OS === 'web') {
-    const isDesktop = width > 500;
-    if (!isDesktop) return mainAppUI;
-
-    return (
-      <View style={{
-        flex: 1,
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#071a10',
-        alignItems: 'center',
-        justifyContent: 'center',
-        overflow: 'hidden',
-      }}>
-        <View style={{
-          width: '100%',
-          maxWidth: 480,
-          height: '100%',
-          backgroundColor: pageBg,
-          boxShadow: '0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,175,55,0.25)',
-          overflow: 'hidden',
-          position: 'relative',
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
-          {mainAppUI}
-        </View>
-      </View>
-    );
-  }
-
   return mainAppUI;
 }
 
