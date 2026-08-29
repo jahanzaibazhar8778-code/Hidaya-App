@@ -11,6 +11,7 @@ import { Audio } from 'expo-av';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Coordinates, PrayerTimes, CalculationMethod, Madhab } from 'adhan';
 import moment from 'moment-hijri';
+import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
 import HajjUmrahGuideScreen from './HajjUmrahGuideScreen';
 
 // Default Fallback Location (Lahore, Pakistan) if GPS is disabled or permission denied
@@ -3066,7 +3067,8 @@ function SplashScreen({ onFinish }) {
   );
 }
 
-export default function App() {
+function MainApp() {
+  const insets = useSafeAreaInsets();
   const systemScheme = useColorScheme();
   const [showSplash, setShowSplash] = useState(true);
   const [showOnboarding, setShowOnboarding] = useState(false);
@@ -3094,7 +3096,7 @@ export default function App() {
   useEffect(() => { setDarkMode(systemScheme === 'dark'); }, [systemScheme]);
 
   const dm = darkMode;
-  const pageBg = dm ? '#0a0a0a' : '#F5F2E8';
+  const pageBg = dm ? '#0a0a0a' : '#FAF7F2';
   const cardBg = dm ? '#1a1a1a' : '#fff';
   const textColor = dm ? '#e0e0e0' : '#1a1a1a';
   const subColor = dm ? '#888' : '#666';
@@ -3729,18 +3731,21 @@ export default function App() {
       {/* PREMIUM TAB BAR — PINNED AT BOTTOM */}
       <View style={{
         flexDirection: 'row',
-        backgroundColor: dm ? '#121212' : '#FFFFFF',
-        paddingTop: 6,
-        paddingBottom: 6,
+        backgroundColor: pageBg,
+        paddingTop: 8,
+        paddingBottom: Math.max(insets.bottom, 8),
+        height: 60 + insets.bottom,
         borderTopWidth: 1,
-        borderTopColor: dm ? '#222222' : '#E8E8E8',
+        borderTopColor: dm ? '#222222' : '#E5E0D8',
         elevation: 20,
         shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 10,
+        shadowOpacity: 0.08,
+        shadowRadius: 8,
+        shadowOffset: { width: 0, height: -2 },
         flexShrink: 0,
         zIndex: 1000,
         width: '100%',
+        marginBottom: 0,
       }}>
         {tabs.map((tab) => {
           const isMainTab = ['Home', 'Prayer', 'AI', 'Duas', 'Settings'].includes(activeTab);
@@ -3803,4 +3808,12 @@ export default function App() {
   }
 
   return mainAppUI;
+}
+
+export default function App() {
+  return (
+    <SafeAreaProvider>
+      <MainApp />
+    </SafeAreaProvider>
+  );
 }
